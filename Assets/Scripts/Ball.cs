@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     public Rigidbody rb;
+    public int ballDamage = 1;
     // Start is called before the first frame update
     void Start()
     {

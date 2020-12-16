@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 2641906321265189006}
   - component: {fileID: 2641906321265189005}
   - component: {fileID: 2641906321265189004}
-  m_Layer: 0
+  - component: {fileID: 7587990436284960065}
+  m_Layer: 8
   m_Name: Brick
-  m_TagString: Untagged
+  m_TagString: Brick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4522,3 +4523,15 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 208bee943a57bf44ca8fd4f4a3119e66, type: 2}
+--- !u!114 &7587990436284960065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2641906321265189011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875372f2cba2b0f41ac116e21492db4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4783348756495668692}
   - component: {fileID: 4783348756495668695}
   - component: {fileID: 4783348756495668694}
-  m_Layer: 0
-  m_Name: Player
+  m_Layer: 9
+  m_Name: Paddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
