@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
+
+    public bool isGameStarted;
     // Start is called before the first frame update
     void Start()
     {
