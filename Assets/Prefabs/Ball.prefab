@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8275688024610434734}
   - component: {fileID: 3785729289509531844}
   - component: {fileID: -1073996925610555816}
+  - component: {fileID: 723678281721371172}
   m_Layer: 12
   m_Name: Ball
   m_TagString: Ball
@@ -111,7 +112,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 8
   m_CollisionDetection: 0
 --- !u!114 &-1073996925610555816
 MonoBehaviour:
@@ -126,3 +127,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  ballDamage: 1
+--- !u!114 &723678281721371172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3696650441049808796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafd0a8e9ee856a49bf432688899df59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangeType: 0
+  fadeType: 0
+  range: 1
+  strength: 0.01
+  variation: 50
+  chaos: 30
+  forceByMass: 1
+  affectKinematic: 0
+  heightOffset: 0
+  delay: 0
+  applyDamage: 1
+  damageValue: 1
+  play: 0
+  volume: 1
+  clip: {fileID: 0}
+  transForm: {fileID: 0}
+  bombPosition: {x: 0, y: 0, z: 0}
+  explPosition: {x: 0, y: 0, z: 0}
+  colliders: []
+  projectiles: []
+  rigidbodies: []
+  showGizmo: 1
+  mask: -1
+  tagFilter: Untagged
