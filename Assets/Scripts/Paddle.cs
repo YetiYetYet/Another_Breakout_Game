@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Paddle : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class Paddle : MonoBehaviour
         else
         {
             _instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
     }
     #endregion
@@ -35,6 +36,7 @@ public class Paddle : MonoBehaviour
     public float limit = 3;
     public float ballAngleMultiplicator;
     
+
     // Start is called before the first frame update
     void Start()
     {

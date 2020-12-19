@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BallsManager : MonoBehaviour
@@ -20,7 +21,7 @@ public class BallsManager : MonoBehaviour
         else
         {
             _instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
     }
     #endregion
@@ -42,7 +43,8 @@ public class BallsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.Instance.isGameStarted)
+        GameManager gameManager = GameManager.Instance;
+        if (!gameManager.isGameStarted && !gameManager.gameOver)
         {
             Vector3 paddlePosition = Paddle.Instance.gameObject.transform.position;
             Vector3 ballPosition = paddlePosition + ballSpawnerOffset;
@@ -66,10 +68,13 @@ public class BallsManager : MonoBehaviour
         
         this.Balls = new List<Ball>{ _initialBall };
     }
-
-    /*private void OnDrawGizmosSelected()
+    
+    public void ResetBalls()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(GameObject.FindGameObjectWithTag("Paddle").transform.position + ballSpawnerOffset, 0.1f);
-    }*/
+        foreach (var ball in Balls.ToList())
+        {
+            Destroy(ball.gameObject);
+        }
+        InitBall();
+    }
 }
