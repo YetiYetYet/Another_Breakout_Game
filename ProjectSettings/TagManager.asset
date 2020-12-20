@@ -8,6 +8,8 @@ TagManager:
   - Paddle
   - Ball
   - Brick
+  - Missile
+  - Canvas/GameOver
   layers:
   - Default
   - TransparentFX

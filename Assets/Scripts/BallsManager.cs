@@ -44,7 +44,7 @@ public class BallsManager : MonoBehaviour
     void Update()
     {
         GameManager gameManager = GameManager.Instance;
-        if (!gameManager.isGameStarted && !gameManager.gameOver)
+        if (!gameManager.isGameStarted && gameManager.gameState == GameManager.State.Play)
         {
             Vector3 paddlePosition = Paddle.Instance.gameObject.transform.position;
             Vector3 ballPosition = paddlePosition + ballSpawnerOffset;

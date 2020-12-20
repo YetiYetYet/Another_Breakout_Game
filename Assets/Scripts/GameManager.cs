@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,28 +14,34 @@ public class GameManager : MonoBehaviour
         if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
-            return;
         }
         else
         {
             _instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
     }
     #endregion
+    
+    public enum State
+    {
+        Play,
+        Pause,
+        GameOver,
+        Victory
+    }
 
     public int initialLives = 1;
     [ReadOnly]
     public int actualLives;
     [ReadOnly]
     public bool isGameStarted;
-    [ReadOnly] 
-    public bool gameOver;
+    [ReadOnly]
+    public State gameState;
 
-    public int currentLevel;
-
-    
-    public GameObject _gameOverScreen;
+    public GameObject gameOverScreen;
+    public GameObject victoryScreen;
+    public GameObject pauseScreen;
 
     private void OnEnable()
     {
@@ -48,32 +51,28 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Loading scene : " + scene.name);
-        Initialisation();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        if(!PlayerPrefs.HasKey("currentLevel")) PlayerPrefs.SetInt("currentLevel", 1);
         Ball.OnBallDeath += OnBallDeath;
         actualLives = initialLives;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        gameState = State.Play;
     }
 
     private void OnBallDeath(Ball ball)
     {
+        if (gameState == State.Victory) return;
         if (BallsManager.Instance.Balls.Count <= 0)
         {
             this.actualLives--;
             isGameStarted = false;
             if (actualLives < 1)
             {
-                _gameOverScreen.gameObject.SetActive(true);
-                gameOver = true;
+                gameOverScreen.gameObject.SetActive(true);
+                gameState = State.GameOver;
             }
             else
             {
@@ -85,23 +84,52 @@ public class GameManager : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Initialisation();
     }
 
     public void NextLevel()
     {
-        currentLevel++;
-        SceneManager.LoadScene("Level_" + currentLevel);
+        int currentLevel = PlayerPrefs.GetInt("currentLevel");
+        PlayerPrefs.SetInt("currentLevel", currentLevel++);
+        if (SceneUtility.GetBuildIndexByScenePath("Level_" + currentLevel) >= 0)
+        {
+            SceneManager.LoadScene("Level_" + currentLevel);
+        }
+        else
+        {
+            SceneManager.LoadScene("End");
+        }
     }
 
-    private void Initialisation()
+    public void PauseLevel()
     {
-        _gameOverScreen = GameObject.FindWithTag("Canvas/GameOver");
-        _gameOverScreen.SetActive(false);
+        gameState = State.Pause;
+        Time.timeScale = 0;
+        pauseScreen.SetActive(true);
     }
-    
+
+    public void ResumeLevel()
+    {
+        gameState = State.Play;
+        Time.timeScale = 1;
+        pauseScreen.SetActive(false);
+    }
+
+    public void Victory()
+    {
+        gameState = State.Victory;
+        victoryScreen.SetActive(true);
+        Time.timeScale = 0.8f;
+        BallsManager.Instance.ResetBalls();
+    }
+
+    public void ToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     private void OnDisable()
     {
         Ball.OnBallDeath -= OnBallDeath;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
