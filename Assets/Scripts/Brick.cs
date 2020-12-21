@@ -8,6 +8,7 @@ using Debug = System.Diagnostics.Debug;
 public class Brick : MonoBehaviour
 {
     public int hitPoints = 1;
+    public int scoreValue = 10;
     
     public static event Action<Brick> OnBrickDestruction;
     private RayfireRigid _rayfireRigid;

@@ -39,6 +39,9 @@ public class GameManager : MonoBehaviour
     [ReadOnly]
     public State gameState;
 
+    public string levelName;
+    public int score;
+
     public GameObject gameOverScreen;
     public GameObject victoryScreen;
     public GameObject pauseScreen;
@@ -57,6 +60,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         if(!PlayerPrefs.HasKey("currentLevel")) PlayerPrefs.SetInt("currentLevel", 1);
+        if(!PlayerPrefs.HasKey("score")) PlayerPrefs.SetInt("score", 0);
         Ball.OnBallDeath += OnBallDeath;
         actualLives = initialLives;
         gameState = State.Play;
