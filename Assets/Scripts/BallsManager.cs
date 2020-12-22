@@ -77,4 +77,16 @@ public class BallsManager : MonoBehaviour
         }
         InitBall();
     }
+
+    public void SpawnBalls(Vector3 transformPosition, int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            Ball spawnedBall = Instantiate(ballPrefab, transformPosition, Quaternion.identity);
+            Rigidbody spawnedBallRigidbody = spawnedBall.GetComponent<Rigidbody>();
+            spawnedBallRigidbody.isKinematic = false;
+            spawnedBallRigidbody.AddForce(0, initialBallSpeed, 0);
+            Balls.Add(spawnedBall);
+        }
+    }
 }
