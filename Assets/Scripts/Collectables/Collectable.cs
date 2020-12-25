@@ -9,7 +9,6 @@ public abstract class Collectable : MonoBehaviour
     {
         if (other.CompareTag("Paddle"))
         {
-            Debug.Log("ApplyEffect");
             ApplyEffect();
         }
 
