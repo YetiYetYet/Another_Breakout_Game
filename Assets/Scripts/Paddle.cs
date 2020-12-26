@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -35,12 +36,18 @@ public class Paddle : MonoBehaviour
     public float speed = 1;
     public float limit = 3;
     public float ballAngleMultiplicator;
+    [ShowInInspector, ReadOnly] 
+    private Vector3 _initialScaling;
+    [ShowInInspector, ReadOnly] 
+    private Vector3 _targetScaling;
     
 
     // Start is called before the first frame update
     void Start()
     {
         targetPos = transform.position;
+        _initialScaling = transform.localScale;
+        _targetScaling = _initialScaling;
         _camera = Camera.main;
         _plane = new Plane(Vector3.forward, 0);
     }
@@ -48,13 +55,25 @@ public class Paddle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.Instance.gameState == GameManager.State.Victory || GameManager.Instance.gameState == GameManager.State.GameOver)
+            return;
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
         if (_plane.Raycast(ray, out float distance))
         {
             targetPos.x = Mathf.Clamp(ray.GetPoint(distance).x, -limit, limit);
             
         }
-        transform.position = Vector3.Lerp(transform.position, targetPos, speed * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, targetPos, speed * Time.deltaTime * 10);
+        
+        if (_targetScaling != transform.localScale)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, _targetScaling, Time.deltaTime * 10); 
+        }
+    }
+
+    public void ChangeScale(Vector3 targetScaling)
+    {
+        _targetScaling = targetScaling;
     }
 
     private void OnCollisionEnter(Collision other)

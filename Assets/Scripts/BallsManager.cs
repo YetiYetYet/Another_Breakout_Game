@@ -69,13 +69,14 @@ public class BallsManager : MonoBehaviour
         this.Balls = new List<Ball>{ _initialBall };
     }
     
-    public void ResetBalls()
+    public void ResetBalls(bool initNewBall)
     {
         foreach (var ball in Balls.ToList())
         {
             Destroy(ball.gameObject);
         }
-        InitBall();
+        if(initNewBall)
+            InitBall();
     }
 
     public void SpawnBalls(Vector3 transformPosition, int count)

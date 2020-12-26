@@ -77,10 +77,11 @@ public class GameManager : MonoBehaviour
             {
                 gameOverScreen.gameObject.SetActive(true);
                 gameState = State.GameOver;
+                CollectableManager.Instance.RemoveAllCollectables();
             }
             else
             {
-                BallsManager.Instance.ResetBalls();
+                BallsManager.Instance.ResetBalls(true);
             }
         }
     }
@@ -123,7 +124,8 @@ public class GameManager : MonoBehaviour
         gameState = State.Victory;
         victoryScreen.SetActive(true);
         Time.timeScale = 0.8f;
-        BallsManager.Instance.ResetBalls();
+        BallsManager.Instance.ResetBalls(false);
+        CollectableManager.Instance.RemoveAllCollectables();
     }
 
     public void ToMainMenu()

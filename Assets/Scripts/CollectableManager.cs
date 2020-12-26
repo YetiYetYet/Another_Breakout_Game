@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -49,11 +50,10 @@ public class CollectableManager : MonoBehaviour
             Collectable newBuff = SpawnCollectable(true, brick.transform.position);
 
         }
-        if (randomDebuff <= debuffChance && !alreadySpawn)
+        if (randomDebuff <= debuffChance && alreadySpawn == false)
         {
             alreadySpawn = true;
-            Collectable newBuff = SpawnCollectable(brick, brick.transform.position);
-
+            Collectable newBuff = SpawnCollectable(false, brick.transform.position);
         }
         
     }
@@ -64,6 +64,15 @@ public class CollectableManager : MonoBehaviour
         Collectable prefab = collectables[randomIndex];
         Collectable newCollectable = Instantiate(prefab, position, Quaternion.identity);
         return newCollectable;
+    }
+
+    public void RemoveAllCollectables()
+    {
+        List<GameObject> collectables = new List<GameObject>(GameObject.FindGameObjectsWithTag("Collectable"));
+        foreach (var obj in collectables)
+        {
+            Destroy(obj);
+        }
     }
 
     private void OnDisable()

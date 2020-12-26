@@ -11,6 +11,9 @@ TagManager:
   - Missile
   - Canvas/GameOver
   - DeathWall
+  - Wall/Left
+  - Wall/Right
+  - Collectable
   layers:
   - Default
   - TransparentFX
