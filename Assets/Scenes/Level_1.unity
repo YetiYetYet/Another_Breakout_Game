@@ -4448,8 +4448,8 @@ MonoBehaviour:
   - {fileID: 1689229213994300816, guid: a309b21b7706ecd429528148f9651bb3, type: 3}
   debuff:
   - {fileID: -6328468137405719524, guid: 73ff70ed1a127404da76951e95a3cccd, type: 3}
-  buffChance: 20
-  debuffChance: 20
+  buffChance: 15
+  debuffChance: 10
 --- !u!4 &1066012057
 Transform:
   m_ObjectHideFlags: 0
